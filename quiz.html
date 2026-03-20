@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Productivity Method — Gods of Productivity</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f7f9fc;
+  --surface-2: #edf1f7;
+  --border: #d4dde9;
+  --text: #1a2535;
+  --text-muted: #6b7a90;
+  --accent: #225588;
+  --accent-glow: rgba(34,85,136,0.12);
+  --accent-2: #2e6ab0;
+  --success: #1a7a6e;
+  --success-glow: rgba(26,122,110,0.1);
+  --warn: #b45309;
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+.container { max-width: 720px; margin: 0 auto; padding: 24px 20px; min-height: 100vh; display: flex; flex-direction: column; }
+.hero { text-align: center; padding: 60px 0 40px; }
+.hero-badge { display: inline-block; background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
+.hero h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; color: var(--text); }
+.hero p { font-size: 17px; color: var(--text-muted); max-width: 520px; margin: 0 auto 32px; }
+.btn-start { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 600; padding: 14px 36px; border: none; border-radius: 100px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 24px var(--accent-glow); }
+.btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow); }
+.progress-wrap { padding: 0 0 32px; display: none; }
+.progress-bar-bg { height: 4px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--success)); border-radius: 4px; transition: width 0.4s ease; width: 0%; }
+.progress-label { display: flex; justify-content: space-between; margin-top: 10px; font-size: 13px; color: var(--text-muted); }
+.question-card { display: none; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.q-number { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
+.q-text { font-size: 22px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+.q-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option-btn { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 20px; text-align: left; cursor: pointer; transition: all 0.15s; color: var(--text); font-size: 15px; line-height: 1.45; }
+.option-btn:hover { border-color: var(--accent); background: var(--surface-2); box-shadow: 0 0 0 3px var(--accent-glow); }
+.option-btn .opt-label { font-weight: 600; display: block; margin-bottom: 2px; }
+.option-btn .opt-desc { color: var(--text-muted); font-size: 13px; }
+.btn-back { background: none; border: none; color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; margin-bottom: 16px; transition: color 0.15s; display: inline-block; }
+.btn-back:hover { color: var(--accent); }
+.results-screen { display: none; animation: fadeUp 0.5s ease; padding-bottom: 60px; }
+.results-header { text-align: center; padding: 40px 0 32px; }
+.results-header h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.results-header p { color: var(--text-muted); font-size: 15px; }
+.result-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 20px; }
+.result-card.primary { border-color: var(--accent); box-shadow: 0 4px 32px var(--accent-glow); }
+.result-card.complementary { border-color: var(--success); box-shadow: 0 4px 24px var(--success-glow); }
+.card-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 14px; }
+.primary .card-tag { background: var(--accent); color: #ffffff; border: 1px solid var(--accent); }
+.complementary .card-tag { background: var(--success); color: #ffffff; border: 1px solid var(--success); }
+.result-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.result-card .tier-badge { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; display: block; }
+.result-card .description { font-size: 15px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.6; }
+.result-card .why-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.result-card .why-text { font-size: 14px; line-height: 1.6; }
+.result-card .limits-title { font-size: 13px; font-weight: 700; color: var(--warn); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+.result-card .limits-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+.breakdown { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 20px; }
+.breakdown h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+.dim-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.dim-label { font-size: 13px; font-weight: 500; color: var(--text-muted); min-width: 140px; text-align: right; }
+.dim-bar-bg { flex: 1; height: 6px; background: var(--surface-2); border-radius: 6px; overflow: hidden; }
+.dim-bar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--accent), #4a8fd4); transition: width 0.6s ease; }
+.dim-val { font-size: 13px; font-weight: 600; color: var(--accent); min-width: 28px; }
+.actions { text-align: center; padding: 20px 0; }
+.btn-retake { background: transparent; border: 1.5px solid var(--border); color: var(--text); font-size: 14px; font-weight: 600; padding: 12px 28px; border-radius: 100px; cursor: pointer; transition: all 0.15s; margin: 0 6px; }
+.btn-retake:hover { border-color: var(--accent); color: var(--accent); }
+.btn-share { background: var(--accent); border: none; color: #fff; font-size: 14px; font-weight: 600; padding: 12px 28px; border-radius: 100px; cursor: pointer; transition: all 0.15s; margin: 0 6px; }
+.btn-share:hover { transform: translateY(-1px); }
+.footer { margin-top: auto; text-align: center; padding: 32px 0; font-size: 13px; color: var(--text-muted); }
+.footer a { color: var(--accent); text-decoration: none; }
+@media (max-width: 600px) { .container { padding: 16px; } .hero { padding: 40px 0 24px; } .q-text { font-size: 19px; } .dim-label { min-width: 100px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero" id="heroScreen">
+    <div class="hero-badge">Free Diagnostic</div>
+    <h1>Which Productivity Method Actually Fits You?</h1>
+    <p>Not a personality quiz. A proper diagnostic that finds your bottleneck, matches your work style, and recommends the method most likely to stick.</p>
+    <button class="btn-start" onclick="startQuiz()">Start the Assessment <span>→</span></button>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:16px;">13 questions · Takes about 3 minutes · No sign-up required</p>
+  </div>
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <div class="progress-label">
+      <span id="progressCategory">Bottleneck Diagnosis</span>
+      <span id="progressCount">1 / 13</span>
+    </div>
+  </div>
+  <div id="questionArea"></div>
+  <div class="results-screen" id="resultsScreen"></div>
+  <div class="footer"><a href="https://godsofproductivity.com"><b>gods</b><span style="color:var(--text)">of</span><b>productivity</b><span style="color:var(--text)">.com</span></a></div>
+</div>
+<script>
+const DIM = {
+  capture:0, prioritise:1, execute:2, complete:3, review:4,
+  variableDays:5, predictableRoutine:6, makerSchedule:7, managerSchedule:8, soloWork:9, collaborative:10,
+  sequential:11, parallel:12, detailOriented:13, bigPicture:14,
+  overwhelm:15, procrastination:16, contextSwitching:17, lackOfDirection:18, perfectionism:19,
+  lowSetup:20, lowMaintenance:21, digitalNative:22, analogueFriendly:23, externalAccountability:24, internalMotivation:25
+};
+const DIM_COUNT = 26;
+const DIM_NAMES = ["Capture","Prioritise","Execute","Complete","Review","Variable Days","Predictable Routine","Maker Schedule","Manager Schedule","Solo Work","Collaborative","Sequential","Parallel / Intuitive","Detail-Oriented","Big-Picture","Overwhelm","Procrastination","Context-Switching","Lack of Direction","Perfectionism","Low Setup Cost","Low Maintenance","Digital-Native","Analogue-Friendly","External Accountability","Internal Motivation"];
+const DIM_CATEGORIES = [{name:"Bottleneck",start:0,end:4},{name:"Work Structure",start:5,end:10},{name:"Cognitive Style",start:11,end:14},{name:"Primary Pain",start:15,end:19},{name:"System Traits",start:20,end:25}];
+
+const METHODS = [
+  {name:"GTD (Getting Things Done)", tier:1, scores:[3,2,2,2,3, 3,2,2,3,2,2, 3,1,3,2, 3,1,2,2,1, 1,1,3,1,1,3], howItWorks:"David Allen's five-step system: capture every commitment, clarify what it means, organise it by context, reflect weekly, and engage with confidence. Your mind stays clear because the system holds everything.", bestFor:"People drowning in commitments across multiple life areas who need a trusted external brain.", limits:"High setup cost and requires disciplined weekly reviews. Falls apart without the Review step."},
+  {name:"Time Blocking", tier:1, scores:[1,2,3,2,1, 1,3,3,2,3,1, 3,1,2,2, 2,2,3,2,1, 2,2,3,1,2,2], howItWorks:"Assign every hour of your day a specific task or category. Your calendar becomes your to-do list. If it's not on the calendar, it doesn't get done.", bestFor:"Makers who need protected deep work blocks and people whose days get hijacked by reactivity.", limits:"Breaks down with highly variable days. Over-scheduling can increase stress for some."},
+  {name:"Pomodoro Technique", tier:1, scores:[0,1,3,2,0, 2,2,3,1,3,1, 2,1,2,1, 1,3,3,1,1, 3,3,2,2,2,1], howItWorks:"Work in 25-minute focused sprints with 5-minute breaks. Every four sprints, take a longer break. The timer creates urgency and the breaks prevent burnout.", bestFor:"People who struggle to start tasks, have attention challenges, or lose track of time.", limits:"Doesn't help with prioritisation. Can feel rigid during flow states. Interruptions kill it."},
+  {name:"Eisenhower Matrix", tier:1, scores:[1,3,1,1,1, 2,2,2,3,2,2, 3,1,1,3, 3,1,1,3,2, 3,3,2,2,1,2], howItWorks:"Classify every task into four quadrants: urgent + important (do now), important + not urgent (schedule), urgent + not important (delegate), neither (delete).", bestFor:"Leaders and managers overwhelmed by competing demands who need to ruthlessly triage.", limits:"Only addresses prioritisation — doesn't help with execution. Classification can be subjective."},
+  {name:"Eat the Frog", tier:1, scores:[0,2,3,1,0, 2,3,3,1,3,1, 2,1,1,2, 1,3,1,2,2, 3,3,2,2,1,2], howItWorks:"Identify the single most impactful or dreaded task each day. Do it first thing, before anything else. Once the frog is eaten, the rest of the day feels easier.", bestFor:"Chronic procrastinators who lose willpower as the day goes on.", limits:"Only addresses one task. Doesn't help with volume. Assumes mornings are peak energy."},
+  {name:"Weekly Review & Planning", tier:1, scores:[2,2,1,2,3, 3,2,2,3,2,2, 2,2,2,3, 2,1,1,3,1, 2,2,2,2,1,3], howItWorks:"At the end of each week, reflect on what worked and what didn't, clear your inboxes, and plan the following week's priorities. A maintenance layer for any system.", bestFor:"Anyone whose productivity system decays over time. Pairs with any other method.", limits:"Not a standalone method — needs a system to review. Can feel tedious without a clear format."},
+  {name:"Personal Kanban", tier:2, scores:[2,2,2,3,2, 3,2,2,2,2,2, 2,2,3,2, 3,1,2,2,1, 2,2,3,1,2,2], howItWorks:"A visual board with three columns — To Do, Doing, Done — and a strict limit on how many tasks can be 'Doing' at once. This prevents overcommitment and makes progress visible.", bestFor:"Visual thinkers who start too many things and finish too few.", limits:"Doesn't help with prioritisation within columns. Physical boards lack portability."},
+  {name:"Ivy Lee Method", tier:2, scores:[1,3,3,2,0, 1,3,3,1,3,1, 3,0,2,1, 2,2,2,2,3, 3,3,1,3,1,2], howItWorks:"At the end of each day, write down the six most important tasks for tomorrow. Rank them in order. Work through them one at a time — no skipping, no multitasking.", bestFor:"People who want extreme simplicity and struggle with decision fatigue.", limits:"No flexibility for emergencies. Cap of six can be limiting. No review mechanism."},
+  {name:"1-3-5 Rule", tier:2, scores:[1,3,2,2,0, 2,2,2,2,2,1, 2,1,2,2, 3,1,1,2,3, 3,3,2,2,1,2], howItWorks:"Each day, commit to exactly one big task, three medium tasks, and five small tasks. Nine items total. The structure prevents both over-planning and under-delivery.", bestFor:"People paralysed by overwhelming task lists who need a daily scope constraint.", limits:"Arbitrary categories may not fit all work. Doesn't address multi-day projects."},
+  {name:"Bullet Journal", tier:2, scores:[3,2,1,2,3, 3,2,2,2,3,1, 2,2,3,2, 2,1,1,2,1, 2,1,0,3,1,3], howItWorks:"An analogue rapid-logging system using symbols: dots for tasks, circles for events, dashes for notes. Monthly and daily spreads provide structure. Migration forces regular review.", bestFor:"People who think better on paper and want a combined planner, journal, and idea capture tool.", limits:"Slow for heavy digital workflows. Setup takes time. Risk of over-decorating (productivity theatre)."},
+  {name:"Interstitial Journaling", tier:2, scores:[2,1,2,1,2, 3,1,3,1,3,1, 1,3,2,2, 1,1,3,1,1, 3,3,2,2,1,3], howItWorks:"Between every task, write a brief note: what you just finished, how you feel, and what you'll tackle next. This creates a transition ritual that prevents the mental bleed of context-switching.", bestFor:"People losing hours to context-switching who need a deliberate transition ritual.", limits:"Adds overhead to every transition. Less useful for people who don't switch context often."},
+  {name:"Autofocus", tier:2, scores:[2,1,2,2,1, 3,1,2,1,3,1, 0,3,1,2, 2,2,1,1,3, 3,2,1,3,1,2], howItWorks:"Write everything on one long list. Scan it repeatedly and work on whatever pulls your attention. Cross items off when done. Rewrite unfinished items at the bottom. Trust your intuition.", bestFor:"People who rebel against rigid prioritisation and trust their gut about what needs doing.", limits:"No external accountability. Can drift without direction. Not ideal for deadline-driven work."},
+  {name:"PARA Method", tier:3, scores:[3,1,0,1,2, 2,2,2,2,2,2, 2,2,3,2, 2,0,1,2,1, 1,1,3,0,1,3], howItWorks:"Organise all digital information into four categories: Projects (active outcomes), Areas (ongoing responsibilities), Resources (reference material), and Archive (inactive items). Everything has exactly one home.", bestFor:"Knowledge workers drowning in files, notes, and bookmarks with no retrieval system.", limits:"Purely organisational — doesn't help with execution or prioritisation. Significant setup cost."},
+  {name:"Timeboxing + Energy Mapping", tier:3, scores:[0,2,3,2,1, 1,3,3,1,3,1, 2,2,2,2, 2,3,2,1,1, 1,1,3,1,2,2], howItWorks:"Time blocking layered with personal energy tracking. Map your daily energy peaks and troughs, then schedule your hardest work during high-energy windows and routine tasks during dips.", bestFor:"People whose time blocks fail because they schedule deep work at the wrong time of day.", limits:"Requires self-awareness about energy patterns. Needs one to two weeks of tracking first."},
+  {name:"3-3-3 Method", tier:3, scores:[1,2,2,2,0, 2,3,3,1,3,1, 2,1,2,2, 2,2,2,2,3, 3,3,2,2,1,2], howItWorks:"Structure each day into three blocks: three hours on your most important project, three shorter urgent tasks, and three maintenance activities. Simple, balanced, sustainable.", bestFor:"People who want time blocking's structure without scheduling every single minute.", limits:"Assumes three hours of deep work are available daily. May not suit manager schedules."},
+  {name:"Systemist", tier:3, scores:[3,2,2,2,2, 3,2,2,3,2,2, 3,1,2,2, 3,1,1,2,1, 2,2,3,0,1,3], howItWorks:"Capture everything into one trusted digital inbox. Process and organise daily using labels, filters, and due dates to surface the right task at the right time. A lighter version of GTD built around a digital task manager.", bestFor:"Digital-first workers who want a GTD-lite system without the full ceremony.", limits:"Requires consistent daily processing. Can become a dumping ground without discipline."},
+  {name:"Getting Results the Agile Way", tier:3, scores:[1,2,2,2,3, 3,2,2,2,2,2, 2,2,1,3, 2,1,1,3,2, 2,2,2,2,1,3], howItWorks:"Define three key outcomes for the day, the week, the month, and the year. Monday Vision sets the week's direction. Friday Reflection reviews what happened. Daily outcomes guide action.", bestFor:"People who are busy but not moving toward meaningful goals.", limits:"Light on execution specifics. Best paired with a tactical method for daily tasks."},
+  {name:"Anti-Todo List", tier:3, scores:[0,0,1,1,2, 3,2,2,2,3,1, 1,2,1,1, 1,3,1,1,3, 3,3,2,2,1,2], howItWorks:"Instead of planning what to do, log what you actually accomplished throughout the day after each task. The growing list of wins builds momentum and counters the demoralisation of unchecked to-do lists.", bestFor:"People demoralised by unchecked to-do lists who need momentum and positive reinforcement.", limits:"Not a planning tool. Can feel directionless. Best used as a supplement, not a primary method."}
+];
+
+const QUESTIONS = [
+  {category:"Where You Get Stuck",number:1,text:"When you forget to do something, what usually happened?",sub:"Think about the last time you missed a task.",options:[
+    {label:"I never wrote it down",desc:"It stayed in my head and I forgot.",weights:{capture:3}},
+    {label:"I had too many tasks and didn't know which one mattered",desc:"It got lost in the pile.",weights:{prioritise:3,overwhelm:1}},
+    {label:"I knew about it but kept putting it off",desc:"It stayed on my list but I never started.",weights:{execute:2,procrastination:2}},
+    {label:"I started it but didn't finish",desc:"Something else came up and I moved on.",weights:{complete:3,contextSwitching:1}},
+    {label:"I forgot to follow up on it",desc:"Nobody reminded me and I didn't check.",weights:{review:3}}
+  ]},
+  {category:"Where You Get Stuck",number:2,text:"Where does your work process usually break?",sub:"Pick the step that goes wrong most often.",options:[
+    {label:"Collecting tasks — I lose track of what I need to do",desc:"Things disappear before I can act on them.",weights:{capture:3}},
+    {label:"Deciding what to do next — everything feels important",desc:"I can't choose, so I freeze or jump between tasks.",weights:{prioritise:3,overwhelm:1}},
+    {label:"Starting the work — I know the plan but can't begin",desc:"I understand what to do but I don't do it.",weights:{execute:3,procrastination:1}},
+    {label:"Finishing — I start well but don't complete things",desc:"Tasks get to 80% and then stop.",weights:{complete:3}},
+    {label:"Looking back — I never check what worked and what didn't",desc:"My system gets worse over time because I don't review it.",weights:{review:3,lackOfDirection:1}}
+  ]},
+  {category:"Where You Get Stuck",number:3,text:"What bothers you most about how you work right now?",sub:"Pick the one that feels most true.",options:[
+    {label:"I have too much to do and it feels impossible",desc:"The list keeps growing and I can't keep up.",weights:{overwhelm:3,prioritise:1}},
+    {label:"I do the easy tasks and avoid the hard ones",desc:"I waste time on small things instead of the important ones.",weights:{procrastination:3,execute:1}},
+    {label:"I keep getting distracted and can't focus",desc:"By the time I get back to my task, I've lost my place.",weights:{contextSwitching:3}},
+    {label:"I'm busy all day but don't feel like I'm making progress",desc:"I work hard but I'm not sure it's on the right things.",weights:{lackOfDirection:3,review:1}},
+    {label:"I plan too much and don't do enough",desc:"I organise and research but then run out of time to act.",weights:{perfectionism:3}}
+  ]},
+  {category:"Your Workday",number:4,text:"What does a normal workday look like for you?",sub:"Think about the last two weeks.",options:[
+    {label:"Every day is different",desc:"Unexpected tasks and meetings fill my day. I can't plan much in advance.",weights:{variableDays:3,managerSchedule:1}},
+    {label:"Mostly the same routine",desc:"I know what my day will look like and I can plan ahead.",weights:{predictableRoutine:3}},
+    {label:"Long periods of focused, deep work",desc:"I need hours without interruption to think, write, or build.",weights:{makerSchedule:3,soloWork:1}},
+    {label:"Lots of meetings and short tasks",desc:"My day is broken into small pieces by calls and check-ins.",weights:{managerSchedule:3,collaborative:1}}
+  ]},
+  {category:"Your Workday",number:5,text:"How much do you depend on other people in your work?",sub:"Think about whether you work alone or with a team.",options:[
+    {label:"I mostly work alone",desc:"I decide my own tasks and rarely wait for others.",weights:{soloWork:3,internalMotivation:1}},
+    {label:"A good mix of alone and with others",desc:"Some work is mine; some involves a team.",weights:{soloWork:1,collaborative:1}},
+    {label:"Most of my work involves other people",desc:"I need to pass work to others or wait for them often.",weights:{collaborative:3,externalAccountability:1}},
+    {label:"I manage other people's work more than my own",desc:"My job is to help them get their work done.",weights:{managerSchedule:2,collaborative:2}}
+  ]},
+  {category:"How You Think",number:6,text:"When you start a new project, what do you do first?",sub:"Your natural first step.",options:[
+    {label:"Make a list of steps and follow them in order",desc:"I like a clear plan from start to finish.",weights:{sequential:3,detailOriented:1}},
+    {label:"Understand the goal first, then work out the details",desc:"I need to see the full picture before I start.",weights:{bigPicture:3,parallel:1}},
+    {label:"Just start and work it out along the way",desc:"I learn by doing, not by planning.",weights:{parallel:3,execute:1}},
+    {label:"Read and research before I do anything",desc:"I want to know everything before I make a move.",weights:{detailOriented:3,perfectionism:1}}
+  ]},
+  {category:"How You Think",number:7,text:"How do you remember things you need to do?",sub:"How you actually do it, not how you wish you did.",options:[
+    {label:"Organised lists with clear priorities",desc:"Everything has a place and an order.",weights:{sequential:3,detailOriented:2}},
+    {label:"Quick notes and rough ideas",desc:"It might look messy, but I know where things are.",weights:{parallel:3,bigPicture:1}},
+    {label:"I keep it in my head",desc:"If it matters enough, I'll remember.",weights:{parallel:2,capture:1}},
+    {label:"A notebook I always have with me",desc:"Writing things down by hand helps me think.",weights:{analogueFriendly:3,detailOriented:1}}
+  ]},
+  {category:"Your Typical Day",number:8,text:"It's mid-afternoon. How do you feel about your day so far?",sub:"Pick the answer that happens most often.",options:[
+    {label:"Stressed — my to-do list got longer, not shorter",desc:"I'm falling behind and it's getting worse.",weights:{overwhelm:3,capture:1}},
+    {label:"Guilty — I spent the morning on small, easy tasks",desc:"The big important task is still waiting.",weights:{procrastination:3,execute:1}},
+    {label:"All over the place — I touched many tasks but finished none",desc:"I can't remember what I was doing an hour ago.",weights:{contextSwitching:3,complete:1}},
+    {label:"Unsure — I worked hard but I don't know if it mattered",desc:"I was busy, but maybe on the wrong things.",weights:{lackOfDirection:3,review:1}}
+  ]},
+  {category:"Your Typical Day",number:9,text:"When you sit down to do important work, what stops you?",sub:"The thing that happens most often.",options:[
+    {label:"Messages, emails, and interruptions",desc:"There's always something pulling my attention away.",weights:{contextSwitching:3,makerSchedule:1}},
+    {label:"The task feels too big or too difficult to start",desc:"I look at it, feel stuck, and do something easier instead.",weights:{procrastination:3,execute:1}},
+    {label:"I don't know which task is the most important one",desc:"I haven't decided my priorities, so I drift.",weights:{prioritise:2,lackOfDirection:2}},
+    {label:"I keep improving the last thing I worked on",desc:"I can't stop until it's perfect.",weights:{perfectionism:3,complete:1}}
+  ]},
+  {category:"What You Prefer",number:10,text:"How much time would you spend setting up a new productivity system?",sub:"Be honest, not hopeful.",options:[
+    {label:"Five minutes — I want to start straight away",desc:"If it needs a guide, I'll probably give up.",weights:{lowSetup:3,lowMaintenance:2}},
+    {label:"An hour or two — if I can see the benefit",desc:"I'll put in time at the start if it saves time later.",weights:{lowSetup:1}},
+    {label:"A full weekend — I like building systems",desc:"Setting things up properly is part of the fun.",weights:{detailOriented:1,perfectionism:1}},
+    {label:"As long as it takes — I want the best system",desc:"I'd rather invest time now than waste it later.",weights:{review:1,sequential:1}}
+  ]},
+  {category:"What You Prefer",number:11,text:"Where do you like to keep your tasks?",sub:"The tool you actually use, not the one you want to use.",options:[
+    {label:"A digital app — on my phone or computer",desc:"I'm always on a screen. Paper feels slow.",weights:{digitalNative:3}},
+    {label:"Pen and paper — a notebook or planner",desc:"Writing by hand helps me remember and think.",weights:{analogueFriendly:3}},
+    {label:"A bit of both",desc:"I use apps for some things and paper for others.",weights:{digitalNative:1,analogueFriendly:1}},
+    {label:"My calendar — if it's not scheduled, I won't do it",desc:"Blocking time is the only thing that works for me.",weights:{digitalNative:2,predictableRoutine:1}}
+  ]},
+  {category:"What You Prefer",number:12,text:"What helps you keep going when work is difficult?",sub:"The honest answer, not the ideal one.",options:[
+    {label:"Deadlines and promises to other people",desc:"If someone is waiting for it, I get it done.",weights:{externalAccountability:3}},
+    {label:"Seeing progress — ticking things off a list",desc:"Small wins keep me motivated.",weights:{externalAccountability:1,complete:1}},
+    {label:"Knowing why the work matters to me",desc:"When I care about the goal, I don't need anyone to push me.",weights:{internalMotivation:3,bigPicture:1}},
+    {label:"A simple routine I follow without thinking",desc:"I do it automatically, like a habit.",weights:{lowMaintenance:2,predictableRoutine:1}}
+  ]},
+  {category:"What You Prefer",number:13,text:"At the end of a normal week, which one sounds like you?",sub:"Pick the closest match.",options:[
+    {label:"I did the big tasks but I don't know what I missed",desc:"I never look back to check.",weights:{review:3,capture:1}},
+    {label:"I was busy every day but can't see real results",desc:"Lots of activity, not much progress.",weights:{lackOfDirection:3,prioritise:1}},
+    {label:"I finished less than I planned because new tasks kept coming",desc:"My list grew faster than I could work through it.",weights:{overwhelm:2,complete:2}},
+    {label:"I feel good — I know what I did and what's next",desc:"Things are mostly under control.",weights:{internalMotivation:1,review:1}}
+  ]}
+];
+
+let currentQ = 0;
+let userVector = new Array(DIM_COUNT).fill(0);
+let answerHistory = [];
+
+function startQuiz() {
+  document.getElementById('heroScreen').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'block';
+  currentQ = 0;
+  userVector = new Array(DIM_COUNT).fill(0);
+  answerHistory = [];
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const pct = ((currentQ) / QUESTIONS.length * 100).toFixed(0);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCategory').textContent = q.category;
+  document.getElementById('progressCount').textContent = `${currentQ + 1} / ${QUESTIONS.length}`;
+  let html = `<div class="question-card" style="display:block">`;
+  if (currentQ > 0) {
+    html += `<button class="btn-back" onclick="goBack()">← Back</button>`;
+  }
+  html += `<div class="q-number">Question ${q.number} of ${QUESTIONS.length}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="q-sub">${q.sub}</div>
+    <div class="options">`;
+  q.options.forEach((opt, i) => {
+    html += `<button class="option-btn" onclick="selectOption(${i})">
+      <span class="opt-label">${opt.label}</span>
+      <span class="opt-desc">${opt.desc}</span>
+    </button>`;
+  });
+  html += `</div></div>`;
+  document.getElementById('questionArea').innerHTML = html;
+}
+
+function goBack() {
+  if (currentQ <= 0) return;
+  const prev = answerHistory.pop();
+  for (const [dimKey, weight] of Object.entries(prev.weights)) {
+    userVector[DIM[dimKey]] -= weight;
+  }
+  currentQ--;
+  renderQuestion();
+}
+
+function selectOption(idx) {
+  const q = QUESTIONS[currentQ];
+  const weights = q.options[idx].weights;
+  answerHistory.push({ questionIndex: currentQ, optionIndex: idx, weights: { ...weights } });
+  for (const [dimKey, weight] of Object.entries(weights)) {
+    userVector[DIM[dimKey]] += weight;
+  }
+  currentQ++;
+  if (currentQ < QUESTIONS.length) {
+    renderQuestion();
+  } else {
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressCount').textContent = 'Complete';
+    document.getElementById('progressCategory').textContent = 'Calculating your results…';
+    document.getElementById('questionArea').innerHTML = '';
+    setTimeout(showResults, 600);
+  }
+}
+
+function computeScores() {
+  const maxVal = Math.max(...userVector, 1);
+  const normUser = userVector.map(v => v / maxVal);
+  const results = METHODS.map(m => {
+    let dot = 0, mMax = 0;
+    for (let i = 0; i < DIM_COUNT; i++) { dot += normUser[i] * m.scores[i]; mMax += 1 * m.scores[i]; }
+    const score = mMax > 0 ? (dot / mMax) * 100 : 0;
+    const bonus = m.tier === 1 ? 3 : m.tier === 2 ? 1 : 0;
+    return { ...m, score: score + bonus };
+  });
+  results.sort((a, b) => b.score - a.score);
+  return results;
+}
+
+function getTopDimensions(n = 5) {
+  return userVector.map((v, i) => ({name: DIM_NAMES[i], value: v, index: i}))
+    .sort((a, b) => b.value - a.value).slice(0, n);
+}
+
+function generateWhyText(method, topDims) {
+  const strong = topDims.filter(d => method.scores[d.index] >= 2).map(d => d.name);
+  if (!strong.length) return "This method aligns with your overall profile across multiple dimensions.";
+  const list = strong.length > 2 ? strong.slice(0,-1).join(', ') + ' and ' + strong[strong.length-1] : strong.join(' and ');
+  return `Your diagnostic flagged ${list} as key dimensions — and this method scores highly on all of them. It's designed to address exactly these patterns.`;
+}
+
+function showResults() {
+  const ranked = computeScores();
+  const primary = ranked[0];
+  let complementary = null;
+  for (let i = 1; i < ranked.length; i++) {
+    let diff = 0;
+    for (let d = 0; d < DIM_COUNT; d++) { if (ranked[i].scores[d] >= 2 && primary.scores[d] <= 1) diff++; }
+    if (diff >= 3) { complementary = ranked[i]; break; }
+  }
+  if (!complementary) complementary = ranked[1];
+  const topDims = getTopDimensions(6);
+  const tierLabels = {1:"Tier 1 — Broadly proven", 2:"Tier 2 — Situational powerhouse", 3:"Tier 3 — Advanced / supplementary"};
+
+  let html = `<div class="results-header"><h2>Your Productivity Diagnostic</h2><p>Based on your answers, here's what's most likely to work — and why.</p></div>`;
+
+  html += `<div class="result-card primary">
+    <div class="card-tag">Primary Recommendation</div>
+    <h3>${primary.name}</h3>
+    <span class="tier-badge">${tierLabels[primary.tier]} · Match score: ${primary.score.toFixed(0)}%</span>
+    <div class="description">${primary.howItWorks}</div>
+    <div class="why-title">Why This Fits You</div>
+    <div class="why-text">${generateWhyText(primary, topDims)}</div>
+    <div class="limits-title">Watch Out For</div>
+    <div class="limits-text">${primary.limits}</div>
+  </div>`;
+
+  html += `<div class="result-card complementary">
+    <div class="card-tag">Complementary Method</div>
+    <h3>${complementary.name}</h3>
+    <span class="tier-badge">${tierLabels[complementary.tier]} · Match score: ${complementary.score.toFixed(0)}%</span>
+    <div class="description">${complementary.howItWorks}</div>
+    <div class="why-title">Why Pair This</div>
+    <div class="why-text">${generateWhyText(complementary, topDims)} Combining this with your primary method covers the gaps.</div>
+    <div class="limits-title">Watch Out For</div>
+    <div class="limits-text">${complementary.limits}</div>
+  </div>`;
+
+  html += `<div class="breakdown"><h3>Your Diagnostic Profile</h3>`;
+  const maxDim = Math.max(...userVector, 1);
+  for (const dim of topDims) {
+    const pct = (dim.value / maxDim * 100).toFixed(0);
+    html += `<div class="dim-row">
+      <div class="dim-label">${dim.name}</div>
+      <div class="dim-bar-bg"><div class="dim-bar-fill" style="width:${pct}%"></div></div>
+      <div class="dim-val">${pct}%</div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  html += `<div class="breakdown"><h3>Other Methods Worth a Look</h3>`;
+  let shown = 0;
+  for (let i = 1; i < ranked.length && shown < 4; i++) {
+    if (ranked[i] === complementary) continue;
+    html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+      <div><strong style="font-size:14px">${ranked[i].name}</strong><br><span style="font-size:12px;color:var(--text-muted)">${tierLabels[ranked[i].tier]}</span></div>
+      <div style="font-size:14px;font-weight:600;color:var(--accent)">${ranked[i].score.toFixed(0)}%</div>
+    </div>`;
+    shown++;
+  }
+  html += `</div>`;
+
+  html += `<div class="actions">
+    <button class="btn-retake" onclick="retake()">Retake Assessment</button>
+  </div>`;
+
+  document.getElementById('questionArea').style.display = 'none';
+  document.getElementById('resultsScreen').innerHTML = html;
+  document.getElementById('resultsScreen').style.display = 'block';
+}
+
+function retake() {
+  document.getElementById('resultsScreen').style.display = 'none';
+  document.getElementById('questionArea').style.display = 'block';
+  startQuiz();
+}
+
+function shareResults() {
+  const url = window.location.href.split('?')[0];
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.querySelector('.btn-share');
+    btn.textContent = 'Link copied!';
+    setTimeout(() => { btn.textContent = 'Copy Link to Share'; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
