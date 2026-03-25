@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gods of Productivity — Find Your Method, Stay Accountable</title>
+<meta name="description" content="An online community where people find the right productivity method and hold each other accountable. Take the free diagnostic quiz.">
+<meta property="og:title" content="Gods of Productivity">
+<meta property="og:description" content="Find your productivity method. Stay accountable with a community that keeps you honest.">
+<meta property="og:url" content="https://godsofproductivity.com">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="godsofproductivity.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gods of Productivity">
+<meta name="twitter:description" content="Find your productivity method. Stay accountable with a community that keeps you honest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --border: #e0e0e0;
+  --text: #1a1a1a;
+  --text-muted: #666666;
+  --accent: #228855;
+  --accent-light: rgba(34,136,85,0.08);
+  --accent-hover: rgba(34,136,85,0.12);
+  --radius: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+.page { max-width: 640px; margin: 0 auto; padding: 24px 20px; min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ─── WORDMARK ─── */
+.wordmark { text-align: center; padding: 32px 0 0; font-size: 15px; }
+.wordmark a { color: var(--accent); text-decoration: none; }
+.wordmark b { font-weight: 700; }
+.wordmark .wm-dim { color: var(--text); font-weight: 400; }
+
+/* ─── HERO ─── */
+.hero { text-align: center; padding: 56px 0 32px; flex: 0; }
+.hero h1 { font-size: clamp(28px, 5.5vw, 42px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; color: var(--text); }
+.hero p { font-size: 16px; color: var(--text-muted); max-width: 480px; margin: 0 auto 32px; line-height: 1.65; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; padding: 13px 34px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.15s; text-decoration: none; }
+.btn-primary:hover { background: #1d7549; }
+
+/* ─── DIVIDER ─── */
+.divider { display: flex; align-items: center; gap: 16px; padding: 24px 0; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.divider span { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ─── WAITLIST ─── */
+.waitlist { text-align: center; padding: 0 0 32px; }
+.waitlist h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.waitlist p { font-size: 14px; color: var(--text-muted); max-width: 420px; margin: 0 auto 20px; }
+.tally-wrap { max-width: 400px; margin: 0 auto; }
+
+/* ─── FOOTER ─── */
+.footer { margin-top: auto; text-align: center; padding: 28px 0; font-size: 13px; color: var(--text-muted); }
+
+@media (max-width: 600px) {
+  .page { padding: 16px; }
+  .hero { padding: 36px 0 24px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- WORDMARK -->
+  <div class="wordmark">
+    <a href="/"><b>gods</b><span class="wm-dim">of</span><b>productivity</b><span class="wm-dim">.com</span></a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Find the right method.<br>Stay accountable.</h1>
+    <p>Most productivity advice fails because it's generic. We help you find the method that fits how you actually work — then give you a community to stick with it.</p>
+    <a href="/quiz" class="btn-primary">Take the Free Quiz →</a>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider"><span>Coming soon</span></div>
+
+  <!-- WAITLIST -->
+  <div class="waitlist">
+    <h2>Join the waiting list</h2>
+    <p>We're building a community where people hold each other to their commitments. Get early access when we launch.</p>
+    <div class="tally-wrap">
+      <iframe data-tally-src="https://tally.so/embed/ODLY7g?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy" width="100%" height="150" frameborder="0" marginheight="0" marginwidth="0"
+        title="Join the waiting list"></iframe>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">A productivity community, launching 2026.</div>
+
+</div>
+
+<!-- Tally embed script -->
+<script>
+var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s)}
+</script>
+</body>
+</html>

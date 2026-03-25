@@ -4,102 +4,171 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Find Your Productivity Method — Gods of Productivity</title>
+<meta name="description" content="A diagnostic quiz that finds your productivity bottleneck and recommends the method most likely to work for you. 13 questions, 3 minutes, no sign-up.">
+<meta property="og:title" content="Which Productivity Method Actually Fits You?">
+<meta property="og:description" content="Not a personality quiz. A diagnostic that finds your bottleneck and recommends the method most likely to stick. 13 questions, 3 minutes.">
+<meta property="og:url" content="https://godsofproductivity.com/quiz">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="godsofproductivity.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Which Productivity Method Actually Fits You?">
+<meta name="twitter:description" content="A diagnostic quiz that finds your bottleneck and recommends the method most likely to work for you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #ffffff;
-  --surface: #f7f9fc;
-  --surface-2: #edf1f7;
-  --border: #d4dde9;
-  --text: #1a2535;
-  --text-muted: #6b7a90;
-  --accent: #225588;
-  --accent-glow: rgba(34,85,136,0.12);
-  --accent-2: #2e6ab0;
+  --surface: #f8f9fa;
+  --border: #e0e0e0;
+  --text: #1a1a1a;
+  --text-muted: #666666;
+  --accent: #228855;
+  --accent-light: rgba(34,136,85,0.08);
+  --accent-hover: rgba(34,136,85,0.12);
   --success: #1a7a6e;
-  --success-glow: rgba(26,122,110,0.1);
+  --success-light: rgba(26,122,110,0.08);
   --warn: #b45309;
-  --radius: 12px;
-  --radius-lg: 20px;
+  --radius: 8px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
-.container { max-width: 720px; margin: 0 auto; padding: 24px 20px; min-height: 100vh; display: flex; flex-direction: column; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+.container { max-width: 640px; margin: 0 auto; padding: 24px 20px; min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ─── HERO ─── */
 .hero { text-align: center; padding: 60px 0 40px; }
-.hero-badge { display: inline-block; background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
-.hero h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; color: var(--text); }
-.hero p { font-size: 17px; color: var(--text-muted); max-width: 520px; margin: 0 auto 32px; }
-.btn-start { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 600; padding: 14px 36px; border: none; border-radius: 100px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 24px var(--accent-glow); }
-.btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow); }
-.progress-wrap { padding: 0 0 32px; display: none; }
-.progress-bar-bg { height: 4px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
-.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--success)); border-radius: 4px; transition: width 0.4s ease; width: 0%; }
-.progress-label { display: flex; justify-content: space-between; margin-top: 10px; font-size: 13px; color: var(--text-muted); }
-.question-card { display: none; animation: fadeUp 0.35s ease; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-.q-number { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
-.q-text { font-size: 22px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-.q-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
-.options { display: flex; flex-direction: column; gap: 10px; }
-.option-btn { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 20px; text-align: left; cursor: pointer; transition: all 0.15s; color: var(--text); font-size: 15px; line-height: 1.45; }
-.option-btn:hover { border-color: var(--accent); background: var(--surface-2); box-shadow: 0 0 0 3px var(--accent-glow); }
-.option-btn .opt-label { font-weight: 600; display: block; margin-bottom: 2px; }
-.option-btn .opt-desc { color: var(--text-muted); font-size: 13px; }
-.btn-back { background: none; border: none; color: var(--text-muted); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; margin-bottom: 16px; transition: color 0.15s; display: inline-block; }
+.hero-badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 4px; margin-bottom: 20px; }
+.hero h1 { font-size: clamp(26px, 5vw, 38px); font-weight: 800; line-height: 1.2; margin-bottom: 14px; color: var(--text); }
+.hero p { font-size: 16px; color: var(--text-muted); max-width: 480px; margin: 0 auto 28px; }
+.hero .gut-note { font-size: 13px; color: var(--text-muted); font-style: italic; margin-top: 12px; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; padding: 12px 32px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.15s; }
+.btn-primary:hover { background: #1d7549; }
+
+/* ─── PROGRESS ─── */
+.progress-wrap { padding: 0 0 28px; display: none; }
+.progress-bar-bg { height: 3px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s ease; width: 0%; }
+.progress-label { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--text-muted); }
+
+/* ─── QUESTION ─── */
+.question-card { display: none; animation: fadeUp 0.3s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.q-number { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.q-text { font-size: 20px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.q-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.option-btn { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; text-align: left; cursor: pointer; transition: all 0.12s; color: var(--text); font-size: 14px; line-height: 1.45; }
+.option-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-btn .opt-label { font-weight: 600; display: block; margin-bottom: 1px; }
+.option-btn .opt-desc { color: var(--text-muted); font-size: 12px; }
+.btn-back { background: none; border: none; color: var(--text-muted); font-size: 13px; font-weight: 500; cursor: pointer; padding: 0; margin-bottom: 16px; transition: color 0.12s; }
 .btn-back:hover { color: var(--accent); }
-.results-screen { display: none; animation: fadeUp 0.5s ease; padding-bottom: 60px; }
-.results-header { text-align: center; padding: 40px 0 32px; }
-.results-header h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
-.results-header p { color: var(--text-muted); font-size: 15px; }
-.result-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 20px; }
-.result-card.primary { border-color: var(--accent); box-shadow: 0 4px 32px var(--accent-glow); }
-.result-card.complementary { border-color: var(--success); box-shadow: 0 4px 24px var(--success-glow); }
-.card-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 14px; }
-.primary .card-tag { background: var(--accent); color: #ffffff; border: 1px solid var(--accent); }
-.complementary .card-tag { background: var(--success); color: #ffffff; border: 1px solid var(--success); }
-.result-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-.result-card .tier-badge { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; display: block; }
-.result-card .description { font-size: 15px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.6; }
-.result-card .why-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+/* ─── INTERSTITIAL (pre-results) ─── */
+.interstitial { display: none; animation: fadeUp 0.3s ease; text-align: center; padding: 40px 0; }
+.interstitial h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.interstitial .inter-lead { font-size: 15px; color: var(--text-muted); max-width: 460px; margin: 0 auto 24px; line-height: 1.6; }
+.interstitial .tally-wrap { max-width: 400px; margin: 0 auto 20px; }
+.inter-skip { background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer; text-decoration: underline; transition: color 0.12s; }
+.inter-skip:hover { color: var(--text); }
+
+/* ─── RESULTS ─── */
+.results-screen { display: none; animation: fadeUp 0.3s ease; padding-bottom: 60px; }
+.results-header { text-align: center; padding: 32px 0 24px; }
+.results-header h2 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+.results-header p { color: var(--text-muted); font-size: 14px; }
+.result-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
+.result-card.primary { border-color: var(--accent); border-width: 2px; }
+.result-card.complementary { border-color: var(--success); border-width: 2px; }
+.card-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 12px; }
+.primary .card-tag { background: var(--accent); color: #fff; }
+.complementary .card-tag { background: var(--success); color: #fff; }
+.result-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.result-card .tier-badge { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; display: block; }
+.result-card .description { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
+.result-card .section-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+.result-card .why-title { color: var(--accent); }
 .result-card .why-text { font-size: 14px; line-height: 1.6; }
-.result-card .limits-title { font-size: 13px; font-weight: 700; color: var(--warn); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+.result-card .limits-title { color: var(--warn); margin-top: 14px; }
 .result-card .limits-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-.breakdown { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 20px; }
-.breakdown h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
-.dim-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.dim-label { font-size: 13px; font-weight: 500; color: var(--text-muted); min-width: 140px; text-align: right; }
-.dim-bar-bg { flex: 1; height: 6px; background: var(--surface-2); border-radius: 6px; overflow: hidden; }
-.dim-bar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--accent), #4a8fd4); transition: width 0.6s ease; }
-.dim-val { font-size: 13px; font-weight: 600; color: var(--accent); min-width: 28px; }
-.actions { text-align: center; padding: 20px 0; }
-.btn-retake { background: transparent; border: 1.5px solid var(--border); color: var(--text); font-size: 14px; font-weight: 600; padding: 12px 28px; border-radius: 100px; cursor: pointer; transition: all 0.15s; margin: 0 6px; }
+.breakdown { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
+.breakdown h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.dim-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.dim-label { font-size: 12px; font-weight: 500; color: var(--text-muted); min-width: 130px; text-align: right; }
+.dim-bar-bg { flex: 1; height: 4px; background: var(--surface); border-radius: 4px; overflow: hidden; }
+.dim-bar-fill { height: 100%; border-radius: 4px; background: var(--accent); transition: width 0.5s ease; }
+.dim-val { font-size: 12px; font-weight: 600; color: var(--accent); min-width: 28px; }
+.actions { text-align: center; padding: 16px 0; }
+.btn-retake { background: var(--bg); border: 1px solid var(--border); color: var(--text); font-size: 14px; font-weight: 600; padding: 10px 24px; border-radius: 6px; cursor: pointer; transition: all 0.12s; }
 .btn-retake:hover { border-color: var(--accent); color: var(--accent); }
-.btn-share { background: var(--accent); border: none; color: #fff; font-size: 14px; font-weight: 600; padding: 12px 28px; border-radius: 100px; cursor: pointer; transition: all 0.15s; margin: 0 6px; }
-.btn-share:hover { transform: translateY(-1px); }
-.footer { margin-top: auto; text-align: center; padding: 32px 0; font-size: 13px; color: var(--text-muted); }
+
+/* ─── WATERMARK on results ─── */
+.results-watermark { text-align: center; padding: 20px 0 8px; font-size: 13px; }
+.results-watermark a { color: var(--accent); text-decoration: none; }
+.results-watermark b { font-weight: 700; }
+.results-watermark .wm-dim { color: var(--text-muted); font-weight: 400; }
+
+/* ─── FOOTER ─── */
+.footer { margin-top: auto; text-align: center; padding: 28px 0; font-size: 13px; }
 .footer a { color: var(--accent); text-decoration: none; }
-@media (max-width: 600px) { .container { padding: 16px; } .hero { padding: 40px 0 24px; } .q-text { font-size: 19px; } .dim-label { min-width: 100px; font-size: 11px; } }
+.footer b { font-weight: 700; }
+.footer .f-dim { color: var(--text); font-weight: 400; }
+
+@media (max-width: 600px) {
+  .container { padding: 16px; }
+  .hero { padding: 36px 0 24px; }
+  .q-text { font-size: 18px; }
+  .dim-label { min-width: 90px; font-size: 11px; }
+}
 </style>
 </head>
 <body>
 <div class="container">
+
+  <!-- HERO -->
   <div class="hero" id="heroScreen">
     <div class="hero-badge">Free Diagnostic</div>
     <h1>Which Productivity Method Actually Fits You?</h1>
-    <p>Not a personality quiz. A proper diagnostic that finds your bottleneck, matches your work style, and recommends the method most likely to stick.</p>
-    <button class="btn-start" onclick="startQuiz()">Start the Assessment <span>→</span></button>
-    <p style="font-size:13px; color:var(--text-muted); margin-top:16px;">13 questions · Takes about 3 minutes · No sign-up required</p>
+    <p>Not a personality quiz. A diagnostic that finds where you get stuck and recommends the method most likely to work for you.</p>
+    <button class="btn-primary" onclick="startQuiz()">Start the Assessment →</button>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:14px;">13 questions · About 3 minutes · No sign-up needed</p>
+    <p class="gut-note">Go with your first instinct — there are no wrong answers.</p>
   </div>
+
+  <!-- PROGRESS -->
   <div class="progress-wrap" id="progressWrap">
     <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
     <div class="progress-label">
-      <span id="progressCategory">Bottleneck Diagnosis</span>
-      <span id="progressCount">1 / 13</span>
+      <span id="progressCategory"></span>
+      <span id="progressCount"></span>
     </div>
   </div>
+
+  <!-- QUESTION AREA -->
   <div id="questionArea"></div>
+
+  <!-- INTERSTITIAL (before results) -->
+  <div class="interstitial" id="interstitialScreen">
+    <h2>Your results are ready.</h2>
+    <p class="inter-lead">But here's what no solo method can solve — staying consistent when nobody's watching.<br><br>We're building a community where people hold each other to it. Want early access?</p>
+    <div class="tally-wrap">
+      <iframe data-tally-src="https://tally.so/embed/ODLY7g?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="282" frameborder="0" marginheight="0" marginwidth="0" title="Join the community"></iframe>
+    </div>
+    <button class="btn-primary" onclick="revealResults()" style="margin-bottom:12px;">Show My Results →</button><br>
+    <button class="inter-skip" onclick="revealResults()">Skip, just show results</button>
+  </div>
+
+  <!-- RESULTS -->
   <div class="results-screen" id="resultsScreen"></div>
-  <div class="footer"><a href="https://godsofproductivity.com"><b>gods</b><span style="color:var(--text)">of</span><b>productivity</b><span style="color:var(--text)">.com</span></a></div>
+
+  <!-- FOOTER -->
+  <div class="footer"><a href="https://godsofproductivity.com"><b>gods</b><span class="f-dim">of</span><b>productivity</b><span class="f-dim">.com</span></a></div>
 </div>
+
+<script>
+var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+</script>
+
 <script>
 const DIM = {
   capture:0, prioritise:1, execute:2, complete:3, review:4,
@@ -110,7 +179,6 @@ const DIM = {
 };
 const DIM_COUNT = 26;
 const DIM_NAMES = ["Capture","Prioritise","Execute","Complete","Review","Variable Days","Predictable Routine","Maker Schedule","Manager Schedule","Solo Work","Collaborative","Sequential","Parallel / Intuitive","Detail-Oriented","Big-Picture","Overwhelm","Procrastination","Context-Switching","Lack of Direction","Perfectionism","Low Setup Cost","Low Maintenance","Digital-Native","Analogue-Friendly","External Accountability","Internal Motivation"];
-const DIM_CATEGORIES = [{name:"Bottleneck",start:0,end:4},{name:"Work Structure",start:5,end:10},{name:"Cognitive Style",start:11,end:14},{name:"Primary Pain",start:15,end:19},{name:"System Traits",start:20,end:25}];
 
 const METHODS = [
   {name:"GTD (Getting Things Done)", tier:1, scores:[3,2,2,2,3, 3,2,2,3,2,2, 3,1,3,2, 3,1,2,2,1, 1,1,3,1,1,3], howItWorks:"David Allen's five-step system: capture every commitment, clarify what it means, organise it by context, reflect weekly, and engage with confidence. Your mind stays clear because the system holds everything.", bestFor:"People drowning in commitments across multiple life areas who need a trusted external brain.", limits:"High setup cost and requires disciplined weekly reviews. Falls apart without the Review step."},
@@ -134,7 +202,7 @@ const METHODS = [
 ];
 
 const QUESTIONS = [
-  {category:"Where You Get Stuck",number:1,text:"When you forget to do something, what usually happened?",sub:"Think about the last time you missed a task.",options:[
+  {category:"Where You Get Stuck",number:1,text:"When you forget to do something, what usually happened?",sub:"Think about the last time you missed a task. Go with your gut.",options:[
     {label:"I never wrote it down",desc:"It stayed in my head and I forgot.",weights:{capture:3}},
     {label:"I had too many tasks and didn't know which one mattered",desc:"It got lost in the pile.",weights:{prioritise:3,overwhelm:1}},
     {label:"I knew about it but kept putting it off",desc:"It stayed on my list but I never started.",weights:{execute:2,procrastination:2}},
@@ -167,7 +235,7 @@ const QUESTIONS = [
     {label:"Most of my work involves other people",desc:"I need to pass work to others or wait for them often.",weights:{collaborative:3,externalAccountability:1}},
     {label:"I manage other people's work more than my own",desc:"My job is to help them get their work done.",weights:{managerSchedule:2,collaborative:2}}
   ]},
-  {category:"How You Think",number:6,text:"When you start a new project, what do you do first?",sub:"Your natural first step.",options:[
+  {category:"How You Think",number:6,text:"When you start a new project, what do you do first?",sub:"Your natural first step — don't overthink it.",options:[
     {label:"Make a list of steps and follow them in order",desc:"I like a clear plan from start to finish.",weights:{sequential:3,detailOriented:1}},
     {label:"Understand the goal first, then work out the details",desc:"I need to see the full picture before I start.",weights:{bigPicture:3,parallel:1}},
     {label:"Just start and work it out along the way",desc:"I learn by doing, not by planning.",weights:{parallel:3,execute:1}},
@@ -220,6 +288,7 @@ const QUESTIONS = [
 let currentQ = 0;
 let userVector = new Array(DIM_COUNT).fill(0);
 let answerHistory = [];
+let computedResults = null;
 
 function startQuiz() {
   document.getElementById('heroScreen').style.display = 'none';
@@ -277,10 +346,21 @@ function selectOption(idx) {
   } else {
     document.getElementById('progressFill').style.width = '100%';
     document.getElementById('progressCount').textContent = 'Complete';
-    document.getElementById('progressCategory').textContent = 'Calculating your results…';
+    document.getElementById('progressCategory').textContent = '';
     document.getElementById('questionArea').innerHTML = '';
-    setTimeout(showResults, 600);
+    computedResults = computeScores();
+    showInterstitial();
   }
+}
+
+function showInterstitial() {
+  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('interstitialScreen').style.display = 'block';
+}
+
+function revealResults() {
+  document.getElementById('interstitialScreen').style.display = 'none';
+  showResults();
 }
 
 function computeScores() {
@@ -304,13 +384,13 @@ function getTopDimensions(n = 5) {
 
 function generateWhyText(method, topDims) {
   const strong = topDims.filter(d => method.scores[d.index] >= 2).map(d => d.name);
-  if (!strong.length) return "This method aligns with your overall profile across multiple dimensions.";
+  if (!strong.length) return "This method fits your overall profile across several areas.";
   const list = strong.length > 2 ? strong.slice(0,-1).join(', ') + ' and ' + strong[strong.length-1] : strong.join(' and ');
-  return `Your diagnostic flagged ${list} as key dimensions — and this method scores highly on all of them. It's designed to address exactly these patterns.`;
+  return `Your answers pointed to ${list} as key areas — and this method is designed to help with exactly those.`;
 }
 
 function showResults() {
-  const ranked = computeScores();
+  const ranked = computedResults || computeScores();
   const primary = ranked[0];
   let complementary = null;
   for (let i = 1; i < ranked.length; i++) {
@@ -322,27 +402,29 @@ function showResults() {
   const topDims = getTopDimensions(6);
   const tierLabels = {1:"Tier 1 — Broadly proven", 2:"Tier 2 — Situational powerhouse", 3:"Tier 3 — Advanced / supplementary"};
 
-  let html = `<div class="results-header"><h2>Your Productivity Diagnostic</h2><p>Based on your answers, here's what's most likely to work — and why.</p></div>`;
+  let html = `<div class="results-watermark"><a href="https://godsofproductivity.com"><b>gods</b><span class="wm-dim">of</span><b>productivity</b><span class="wm-dim">.com</span></a></div>`;
+
+  html += `<div class="results-header"><h2>Your Productivity Diagnostic</h2><p>Based on your answers, here's what's most likely to work — and why.</p></div>`;
 
   html += `<div class="result-card primary">
     <div class="card-tag">Primary Recommendation</div>
     <h3>${primary.name}</h3>
-    <span class="tier-badge">${tierLabels[primary.tier]} · Match score: ${primary.score.toFixed(0)}%</span>
+    <span class="tier-badge">${tierLabels[primary.tier]} · Match: ${primary.score.toFixed(0)}%</span>
     <div class="description">${primary.howItWorks}</div>
-    <div class="why-title">Why This Fits You</div>
+    <div class="section-title why-title">Why This Fits You</div>
     <div class="why-text">${generateWhyText(primary, topDims)}</div>
-    <div class="limits-title">Watch Out For</div>
+    <div class="section-title limits-title">Watch Out For</div>
     <div class="limits-text">${primary.limits}</div>
   </div>`;
 
   html += `<div class="result-card complementary">
     <div class="card-tag">Complementary Method</div>
     <h3>${complementary.name}</h3>
-    <span class="tier-badge">${tierLabels[complementary.tier]} · Match score: ${complementary.score.toFixed(0)}%</span>
+    <span class="tier-badge">${tierLabels[complementary.tier]} · Match: ${complementary.score.toFixed(0)}%</span>
     <div class="description">${complementary.howItWorks}</div>
-    <div class="why-title">Why Pair This</div>
-    <div class="why-text">${generateWhyText(complementary, topDims)} Combining this with your primary method covers the gaps.</div>
-    <div class="limits-title">Watch Out For</div>
+    <div class="section-title why-title">Why Pair This</div>
+    <div class="why-text">${generateWhyText(complementary, topDims)} Together with your primary method, this covers the gaps.</div>
+    <div class="section-title limits-title">Watch Out For</div>
     <div class="limits-text">${complementary.limits}</div>
   </div>`;
 
@@ -362,19 +444,20 @@ function showResults() {
   let shown = 0;
   for (let i = 1; i < ranked.length && shown < 4; i++) {
     if (ranked[i] === complementary) continue;
-    html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div><strong style="font-size:14px">${ranked[i].name}</strong><br><span style="font-size:12px;color:var(--text-muted)">${tierLabels[ranked[i].tier]}</span></div>
+    html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div><strong style="font-size:14px">${ranked[i].name}</strong><br><span style="font-size:11px;color:var(--text-muted)">${tierLabels[ranked[i].tier]}</span></div>
       <div style="font-size:14px;font-weight:600;color:var(--accent)">${ranked[i].score.toFixed(0)}%</div>
     </div>`;
     shown++;
   }
   html += `</div>`;
 
+  html += `<div class="results-watermark"><a href="https://godsofproductivity.com"><b>gods</b><span class="wm-dim">of</span><b>productivity</b><span class="wm-dim">.com</span></a></div>`;
+
   html += `<div class="actions">
     <button class="btn-retake" onclick="retake()">Retake Assessment</button>
   </div>`;
 
-  document.getElementById('questionArea').style.display = 'none';
   document.getElementById('resultsScreen').innerHTML = html;
   document.getElementById('resultsScreen').style.display = 'block';
 }
@@ -382,16 +465,8 @@ function showResults() {
 function retake() {
   document.getElementById('resultsScreen').style.display = 'none';
   document.getElementById('questionArea').style.display = 'block';
+  document.getElementById('progressWrap').style.display = 'block';
   startQuiz();
-}
-
-function shareResults() {
-  const url = window.location.href.split('?')[0];
-  navigator.clipboard.writeText(url).then(() => {
-    const btn = document.querySelector('.btn-share');
-    btn.textContent = 'Link copied!';
-    setTimeout(() => { btn.textContent = 'Copy Link to Share'; }, 2000);
-  });
 }
 </script>
 </body>
