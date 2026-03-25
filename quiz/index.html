@@ -65,12 +65,12 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .btn-back:hover { color: var(--accent); }
 
 /* ─── INTERSTITIAL (pre-results) ─── */
-.interstitial { display: none; animation: fadeUp 0.3s ease; text-align: center; padding: 40px 0; }
-.interstitial h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-.interstitial .inter-lead { font-size: 15px; color: var(--text-muted); max-width: 460px; margin: 0 auto 24px; line-height: 1.6; }
-.interstitial .tally-wrap { max-width: 400px; margin: 0 auto 20px; }
-.inter-skip { background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer; text-decoration: underline; transition: color 0.12s; }
-.inter-skip:hover { color: var(--text); }
+.interstitial { display: none; animation: fadeUp 0.3s ease; text-align: center; padding: 48px 0 32px; }
+.interstitial .inter-hook { font-size: clamp(22px, 4.5vw, 30px); font-weight: 800; line-height: 1.25; margin-bottom: 12px; color: var(--text); max-width: 480px; margin-left: auto; margin-right: auto; }
+.interstitial .inter-sub { font-size: 15px; color: var(--text-muted); max-width: 400px; margin: 0 auto 28px; line-height: 1.6; }
+.interstitial .tally-wrap { max-width: 400px; margin: 0 auto 24px; }
+.interstitial .inter-skip { display: block; margin-top: 12px; background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer; text-decoration: underline; transition: color 0.12s; }
+.interstitial .inter-skip:hover { color: var(--text); }
 
 /* ─── RESULTS ─── */
 .results-screen { display: none; animation: fadeUp 0.3s ease; padding-bottom: 60px; }
@@ -102,11 +102,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .btn-retake { background: var(--bg); border: 1px solid var(--border); color: var(--text); font-size: 14px; font-weight: 600; padding: 10px 24px; border-radius: 6px; cursor: pointer; transition: all 0.12s; }
 .btn-retake:hover { border-color: var(--accent); color: var(--accent); }
 
-/* ─── WATERMARK on results ─── */
-.results-watermark { text-align: center; padding: 20px 0 8px; font-size: 13px; }
-.results-watermark a { color: var(--accent); text-decoration: none; }
-.results-watermark b { font-weight: 700; }
-.results-watermark .wm-dim { color: var(--text-muted); font-weight: 400; }
+/* ─── BRAND MARK inside cards ─── */
+.card-brand { text-align: right; font-size: 12px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+.card-brand a { color: var(--accent); text-decoration: none; }
+.card-brand b { font-weight: 700; }
+.card-brand .cb-dim { color: var(--text-muted); font-weight: 400; }
 
 /* ─── FOOTER ─── */
 .footer { margin-top: auto; text-align: center; padding: 28px 0; font-size: 13px; }
@@ -127,12 +127,12 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
   <!-- HERO -->
   <div class="hero" id="heroScreen">
-    <div class="hero-badge">Free Diagnostic</div>
-    <h1>Which Productivity Method Actually Fits You?</h1>
-    <p>Not a personality quiz. A diagnostic that finds where you get stuck and recommends the method most likely to work for you.</p>
-    <button class="btn-primary" onclick="startQuiz()">Start the Assessment →</button>
-    <p style="font-size:13px; color:var(--text-muted); margin-top:14px;">13 questions · About 3 minutes · No sign-up needed</p>
-    <p class="gut-note">Go with your first instinct — there are no wrong answers.</p>
+    <div class="hero-badge">Free Quiz</div>
+    <h1>Find the method that actually fits you.</h1>
+    <p>Not a personality quiz. A free quiz that finds where you actually get stuck — and recommends the method most likely to work for you. Part of <b>gods of productivity</b>.</p>
+    <p class="gut-note">Trust your gut. The quiz reads patterns, not perfection.</p>
+    <button class="btn-primary" onclick="startQuiz()">Start the Quiz →</button>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:14px;">13 questions · 3 minutes · No account needed</p>
   </div>
 
   <!-- PROGRESS -->
@@ -149,13 +149,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
   <!-- INTERSTITIAL (before results) -->
   <div class="interstitial" id="interstitialScreen">
-    <h2>Your results are ready.</h2>
-    <p class="inter-lead">But here's what no solo method can solve — staying consistent when nobody's watching.<br><br>We're building a community where people hold each other to it. Want early access?</p>
+    <p class="inter-hook">No method works when nobody's watching.</p>
+    <p class="inter-sub">Staying consistent is the part no system solves. We're building a community that holds you to it. Get early access below — then see your results.</p>
     <div class="tally-wrap">
       <iframe data-tally-src="https://tally.so/embed/ODLY7g?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="282" frameborder="0" marginheight="0" marginwidth="0" title="Join the community"></iframe>
     </div>
-    <button class="btn-primary" onclick="revealResults()" style="margin-bottom:12px;">Show My Results →</button><br>
-    <button class="inter-skip" onclick="revealResults()">Skip, just show results</button>
+    <button class="btn-primary" onclick="revealResults()">Show My Results →</button>
+    <button class="inter-skip" onclick="revealResults()">No thanks, just show results</button>
   </div>
 
   <!-- RESULTS -->
@@ -402,9 +402,7 @@ function showResults() {
   const topDims = getTopDimensions(6);
   const tierLabels = {1:"Tier 1 — Broadly proven", 2:"Tier 2 — Situational powerhouse", 3:"Tier 3 — Advanced / supplementary"};
 
-  let html = `<div class="results-watermark"><a href="https://godsofproductivity.com"><b>gods</b><span class="wm-dim">of</span><b>productivity</b><span class="wm-dim">.com</span></a></div>`;
-
-  html += `<div class="results-header"><h2>Your Productivity Diagnostic</h2><p>Based on your answers, here's what's most likely to work — and why.</p></div>`;
+  let html = `<div class="results-header"><h2>Your Productivity Diagnostic</h2><p>Based on your answers, here's what's most likely to work — and why.</p></div>`;
 
   html += `<div class="result-card primary">
     <div class="card-tag">Primary Recommendation</div>
@@ -415,6 +413,7 @@ function showResults() {
     <div class="why-text">${generateWhyText(primary, topDims)}</div>
     <div class="section-title limits-title">Watch Out For</div>
     <div class="limits-text">${primary.limits}</div>
+    <div class="card-brand"><a href="https://godsofproductivity.com"><b>gods</b><span class="cb-dim">of</span><b>productivity</b><span class="cb-dim">.com</span></a></div>
   </div>`;
 
   html += `<div class="result-card complementary">
@@ -438,6 +437,7 @@ function showResults() {
       <div class="dim-val">${pct}%</div>
     </div>`;
   }
+  html += `<div class="card-brand" style="margin-top:16px;"><a href="https://godsofproductivity.com"><b>gods</b><span class="cb-dim">of</span><b>productivity</b><span class="cb-dim">.com</span></a></div>`;
   html += `</div>`;
 
   html += `<div class="breakdown"><h3>Other Methods Worth a Look</h3>`;
@@ -451,8 +451,6 @@ function showResults() {
     shown++;
   }
   html += `</div>`;
-
-  html += `<div class="results-watermark"><a href="https://godsofproductivity.com"><b>gods</b><span class="wm-dim">of</span><b>productivity</b><span class="wm-dim">.com</span></a></div>`;
 
   html += `<div class="actions">
     <button class="btn-retake" onclick="retake()">Retake Assessment</button>
