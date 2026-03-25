@@ -57,6 +57,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
 /* ─── FOOTER ─── */
 .footer { margin-top: auto; text-align: center; padding: 28px 0; font-size: 13px; color: var(--text-muted); }
+.footer-brand { margin-top: 6px; font-size: 15px; }
+.footer-brand a { color: var(--accent); text-decoration: none; }
+.footer-brand b { font-weight: 700; }
+.footer-brand .wm-dim { color: var(--text); font-weight: 400; }
 
 @media (max-width: 600px) {
   .page { padding: 16px; }
@@ -74,10 +78,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
   <!-- HERO -->
   <div class="hero">
-    <h1>Most productivity systems work.<br>Most people don't stick with them.</h1>
-    <p>gods of productivity is a productivity platform — free tools, education, and a community built around one idea: accountability is the missing piece.</p>
+    <h1>Most productivity systems work but people don't stick with them.</h1>
+    <p>gods of productivity is a productivity platform — free tools, education, and a community built around one idea: <b>accountability is the missing piece.</b></p>
     <a href="/quiz" class="btn-primary">Take the Free Quiz →</a>
-    <p style="font-size:13px; color:var(--text-muted); margin-top:12px;">The quiz is free. No email required to see your results.</p>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:12px;">No email required to see your results.</p>
   </div>
 
   <!-- DIVIDER -->
@@ -96,7 +100,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   </div>
 
   <!-- FOOTER -->
-  <div class="footer">Built for the ones who are serious about it.</div>
+  <div class="footer">
+    Built for the ones who are serious about it.
+    <div class="footer-brand"><a href="/"><b>gods</b><span class="wm-dim">of</span><b>productivity</b><span class="wm-dim">.com</span></a></div>
+  </div>
 
 </div>
 
