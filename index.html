@@ -39,9 +39,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .wordmark .wm-dim { color: var(--text); font-weight: 400; }
 
 /* ─── HERO ─── */
-.hero { text-align: center; padding: 56px 0 32px; flex: 0; }
-.hero h1 { font-size: clamp(28px, 5.5vw, 42px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; color: var(--text); }
-.hero p { font-size: 16px; color: var(--text-muted); max-width: 480px; margin: 0 auto 32px; line-height: 1.65; }
+.hero { text-align: center; padding: 60px 0 40px; flex: 0; }
+.hero h1 { font-size: clamp(26px, 5vw, 38px); font-weight: 800; line-height: 1.2; margin-bottom: 14px; color: var(--text); }
+.hero p { font-size: 16px; color: var(--text-muted); max-width: 480px; margin: 0 auto 28px; line-height: 1.6; }
 .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; padding: 13px 34px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.15s; text-decoration: none; }
 .btn-primary:hover { background: #1d7549; }
 
@@ -50,7 +50,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
 /* ─── WAITLIST ─── */
 .waitlist { text-align: center; padding: 24px 0 32px; }
-.waitlist h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.waitlist h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
 .waitlist p { font-size: 14px; color: var(--text-muted); max-width: 420px; margin: 0 auto 20px; }
 .tally-wrap { max-width: 400px; margin: 0 auto; }
 .origin-note { font-size: 13px; color: var(--text-muted); max-width: 380px; margin: 20px auto 0; line-height: 1.65; font-style: italic; }
@@ -78,8 +78,18 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
   <!-- HERO -->
   <div class="hero">
-    <h1>Most productivity systems work but people don't stick with them.</h1>
-    <p>gods of productivity is a productivity platform — free tools, education, and a community built around one idea: <b>accountability is the missing piece.</b></p>
+    <h1>Most productivity systems work but people don't stick with them</h1>
+    <p>gods of productivity is a productivity platform.<br /> Free tools, education, and a community built around one idea: <b>accountability is the missing piece.</b></p>
+    <p class="origin-note">The name came from reading the Odyssey. The gods were always there: guiding, watching, holding people to account.<br /> We don't have gods. We have each other.</p>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider"></div>
+
+  <!-- FREE TOOLS -->
+  <div class="waitlist">
+    <h2>Free Tools</h2>
+    <p>Start by finding the method that actually fits how you work.</p>
     <a href="/quiz" class="btn-primary">Take the Free Quiz →</a>
     <p style="font-size:13px; color:var(--text-muted); margin-top:12px;">No email required to see your results.</p>
   </div>
@@ -90,18 +100,17 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   <!-- WAITLIST -->
   <div class="waitlist">
     <h2>Join the founding members</h2>
-    <p>Accountability is the missing piece. We're building the platform around it. Get early access.</p>
+    <p>Accountability is the missing piece. We're building the platform around it. Get early access:</p>
     <div class="tally-wrap">
       <iframe data-tally-src="https://tally.so/embed/ODLY7g?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
         loading="lazy" width="100%" height="150" frameborder="0" marginheight="0" marginwidth="0"
         title="Join the founding members"></iframe>
     </div>
-    <p class="origin-note">The name came from reading the Odyssey. The gods were always there — guiding, watching, holding people to account. We don't have gods. We have each other.</p>
   </div>
 
   <!-- FOOTER -->
   <div class="footer">
-    Built for the ones who are serious about it.
+    Built for the ones who are serious about producivity.
     <div class="footer-brand"><a href="/"><b>gods</b><span class="wm-dim">of</span><b>productivity</b><span class="wm-dim">.com</span></a></div>
   </div>
 
